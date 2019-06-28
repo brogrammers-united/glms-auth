@@ -1,6 +1,8 @@
 package org.bgu.security;
 
+import org.bgu.domain.model.User;
 import org.bgu.domain.repository.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,9 @@ public class GlmsUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userRepository.findUserByEmail(username);
+		final User user = userRepository.findUserByEmail(username);
+		if (user == null)
+			throw new BadCredentialsException("Invalid Credentials");
+		return user;
 	}
 }
