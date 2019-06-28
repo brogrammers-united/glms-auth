@@ -1,0 +1,8 @@
+mvn*
+.mvn*
+.idea*
+target/
+*.iml
+*.properties
+.project
+.settings
